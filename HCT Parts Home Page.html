@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HydrauliCircuit Technology - Home</title>
+    <style>
+        /* --- ANIMATION KEYFRAMES FOR PULSING GLOW --- */
+        @keyframes glow {
+            0% {
+                filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+            }
+            50% {
+                filter: drop-shadow(0 0 50px rgba(255, 255, 255, 1));
+            }
+            100% {
+                filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+            }
+        }
+
+        /* Global Styles & Background */
+        body {
+            background: linear-gradient(to top, #B83227, red);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between; 
+            font-family: Arial, sans-serif;
+            position: relative;
+            color: white;
+            text-align: center;
+            overflow-x: hidden; 
+            overflow-y: hidden; 
+        }
+
+        /* --- Header Area (Holds HOME and CATALOG) --- */
+        header {
+            width: 100%;
+            position: relative; 
+            height: 60px; 
+            padding-top: 10px;
+        }
+        
+        /* HOME Link (Top Left) */
+        .home-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            z-index: 30;
+        }
+        .home-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Dropdown Menu (Top Right) */
+        .dropdown {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            display: inline-block;
+            z-index: 30;
+        }
+
+        /* Dropdown Button Styling */
+        .dropbtn {
+            background-color: #000000; 
+            color: white; 
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            border: 2px solid #333333;
+            border-radius: 6px;
+            box-shadow: 0 4px 0 0 #333333;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); 
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropbtn:hover {
+            background-color: #1a1a1a;
+            transform: translateY(-1px);
+            box-shadow: 0 5px 0 0 #333333; 
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 250px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 100;
+            right: 0; 
+            top: 100%; 
+            border-radius: 6px;
+            overflow: hidden; 
+        }
+
+        .dropdown-content .nav-link {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.1s;
+        }
+
+        .dropdown-content .nav-link:hover {
+            background-color: #f0f0f0;
+            color: #c00000;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* --- LOGO and TITLE AREA (Center Stack) --- */
+        .center-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px; 
+            margin-bottom: 10px;
+            width: 95%;
+        }
+
+        /* Title: "HydrauliCircuit Technology Parts" */
+        .hero-title {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 40px; 
+            font-weight: bold; 
+            color: white;
+            margin-bottom: 0px; 
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8); 
+            line-height: 1.1; 
+            padding-top: 0; 
+        }
+
+        /* HCT LOGO with PULSING GLOW */
+        .logo-container {
+            animation: glow 3s infinite alternate; 
+            margin-top: 5px; 
+            margin-bottom: 5px;
+            position: relative; 
+        }
+        .logo-container img {
+            max-width: min(1000px, 90vw); 
+            max-height: 75vh; 
+            height: auto;
+            width: auto;
+            display: block;
+        }
+        
+        /* --- SPHERE GROUP SHARED STYLING --- */
+        .sphere-group {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            z-index: 25;
+            cursor: pointer;
+            /* Added to remove underline from <a> tag */
+            text-decoration: none; 
+        }
+
+        /* --- LEFT SIDE POSITIONS --- */
+        /* Valves (Top Left - Offset Right) */
+        .sphere-group.valves-pos {
+            top: 0px; 
+            left: -210px; 
+        }
+        /* Clamps (Middle Left - Base) */
+        .sphere-group.clamps-pos {
+            top: 200px; 
+            left: -250px; 
+        }
+        /* Harness (Bottom Left - Offset Right) */
+        .sphere-group.harness-pos {
+            top: 400px; 
+            left: -210px; 
+        }
+
+        /* --- RIGHT SIDE POSITIONS (Symmetrical to Left) --- */
+        /* Hose (Top Right - Offset Left) */
+        .sphere-group.hose-pos {
+            top: 0px; 
+            right: -210px; 
+        }
+        /* Fittings (Middle Right - Base) */
+        .sphere-group.fittings-pos {
+            top: 200px; 
+            right: -250px; 
+        }
+        /* Chat With Sales (Bottom Right - Offset Left) */
+        .sphere-group.chat-pos {
+            top: 400px; 
+            right: -210px; 
+        }
+
+        /* --- SPHERE TITLE STYLING --- */
+        .sphere-title {
+            color: white; 
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            margin-bottom: 5px; 
+            transition: color 0.3s;
+        }
+        
+        /* Highlight title and scale sphere on group hover */
+        .sphere-group:hover .sphere-title {
+            color: yellow; 
+        }
+        .sphere-group:hover .sphere-container {
+            transform: scale(1.05); 
+        }
+        .sphere-group:hover .sphere-container img {
+            transform: rotateY(180deg); 
+        }
+
+        /* --- SPHERE IMAGE STYLING --- */
+        .sphere-container {
+            width: 150px; 
+            height: 150px; 
+            border-radius: 50%; 
+            overflow: hidden; 
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); 
+            transition: transform 0.5s ease; 
+            perspective: 1000px; 
+        }
+
+        .sphere-container img {
+            width: 100%; 
+            height: 100%;
+            object-fit: cover; 
+            border-radius: 50%; 
+            transition: transform 0.5s ease; 
+        }
+
+        /* --- Footer Contact Caption --- */
+        .footer-caption {
+            padding: 10px 0; 
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 18px; 
+            text-align: center;
+            line-height: 1.3; 
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); 
+            width: 100%;
+        }
+
+        .footer-caption a {
+            color: white; 
+            text-decoration: underline; 
+        }
+    </style>
+    
+    </head>
+<body>
+
+    <header>
+        <a href="https://www.hctkits.com" class="home-link">HOME</a>
+        
+        <div class="dropdown">
+            <a href="#" class="dropbtn">CATALOG ▾</a>
+            <div class="dropdown-content">
+                <a href="Page_Two_qlbjul.html" class="nav-link">
+                    Go To Product Groups
+                </a>
+                <a href="Valve_Catalog_Page_lh1zmn.html" class="nav-link">
+                    Valve Catalog Overview
+                </a>
+                <a href="Section_Two_Catalog_Overview_Clamps_gmgmvy.html" class="nav-link">
+                    Clamp Catalog Overview
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="center-stack">
+        <div class="hero-title">
+            HydrauliCircuit Technology Parts
+        </div>
+        
+        <div class="logo-container">
+            
+            <a 
+                href="Valve_Catalog_Page_lh1zmn.html"
+                class="sphere-group valves-pos" 
+            >
+                <div class="sphere-title">Valves</div>
+                <div class="sphere-container">
+                    <img src="https://res.cloudinary.com/df3vec980/image/upload/v1/s-l1600_lm6t4k" alt="Hydraulic Valve Sphere">
+                </div>
+            </a>
+            
+            <a 
+                href="Section_Two_Catalog_Overview_Clamps_gmgmvy.html"
+                class="sphere-group clamps-pos" 
+            >
+                <div class="sphere-title">Clamps</div>
+                <div class="sphere-container">
+                    <img src="https://res.cloudinary.com/df3vec980/image/upload/v1760369318/Z-5965_jpzvt8.bmp" alt="Hydraulic Clamp Sphere">
+                </div>
+            </a>
+
+            <a 
+                href="Page_Two_qlbjul.html"
+                class="sphere-group harness-pos" 
+            >
+                <div class="sphere-title">Harness</div>
+                <div class="sphere-container">
+                    <img src="https://res.cloudinary.com/df3vec980/image/upload/v1760370779/A-0122_d5ie7g.jpg" alt="Hydraulic Harness Sphere">
+                </div>
+            </a>
+
+            <a 
+                href="Page_Two_qlbjul.html"
+                class="sphere-group hose-pos" 
+            >
+                <div class="sphere-title">Hose</div>
+                <div class="sphere-container">
+                    <img src="https://res.cloudinary.com/df3vec980/image/upload/v1760372109/H-6605_uzqvia.jpg" alt="Hydraulic Hose Sphere">
+                </div>
+            </a>
+
+            <a 
+                href="Page_Two_qlbjul.html"
+                class="sphere-group fittings-pos" 
+            >
+                <div class="sphere-title">Fittings</div>
+                <div class="sphere-container">
+                    <img src="https://res.cloudinary.com/df3vec980/image/upload/v1760372412/Z-6418_doqon4.jpg" alt="Hydraulic Fittings Sphere">
+                </div>
+            </a>
+
+            <a 
+                href="mailto:parts@hctkits.com"
+                class="sphere-group chat-pos" 
+            >
+                <div class="sphere-title">Chat With Sales</div>
+                <div class="sphere-container">
+                    <img src="https://res.cloudinary.com/df3vec980/image/upload/v1760372634/Jason_Avatar_zd5aka.png" alt="Sales Agent Avatar Sphere">
+                </div>
+            </a>
+
+            <img src="https://res.cloudinary.com/df3vec980/image/upload/v1760039401/HCT_NEW_LOGO_2025_ezn39r.png" alt="HCT New Logo 2025">
+        </div>
+    </div>
+    
+    <div style="flex-grow: 1;"></div> 
+
+    <div class="footer-caption">
+        Contact us at <a href="mailto:parts@hctkits.com">parts@hctkits.com</a> or call 1-888-603-0080
+    </div>
+
+</body>
+</html>
