@@ -171,8 +171,6 @@
             text-align: center;
             z-index: 25;
             cursor: pointer;
-            /* Added to remove underline from <a> tag */
-            text-decoration: none; 
         }
 
         /* --- LEFT SIDE POSITIONS --- */
@@ -267,7 +265,17 @@
         }
     </style>
     
-    </head>
+    <script>
+        /**
+         * Uses a third-party proxy service (htmlpreview.github.io) to load the
+         * raw Cloudinary URL, forcing it to render as HTML in a new tab.
+         */
+        function openProxyLink(rawUrl) {
+            const proxyUrl = 'https://htmlpreview.github.io/?' + encodeURIComponent(rawUrl);
+            window.open(proxyUrl, '_blank');
+        }
+    </script>
+</head>
 <body>
 
     <header>
@@ -276,13 +284,13 @@
         <div class="dropdown">
             <a href="#" class="dropbtn">CATALOG ▾</a>
             <div class="dropdown-content">
-                <a href="Page_Two_qlbjul.html" class="nav-link">
+                <a href="javascript:void(0)" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1760042628/Page_Two_qlbjul.html')" class="nav-link">
                     Go To Product Groups
                 </a>
-                <a href="Valve_Catalog_Page_lh1zmn.html" class="nav-link">
+                <a href="javascript:void(0)" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1760118768/Valve_Catalog_Page_lh1zmn.html')" class="nav-link">
                     Valve Catalog Overview
                 </a>
-                <a href="Section_Two_Catalog_Overview_Clamps_gmgmvy.html" class="nav-link">
+                <a href="javascript:void(0)" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1760453920/Section_Two_Catalog_Overview_Clamps_gmgmvy.html')" class="nav-link">
                     Clamp Catalog Overview
                 </a>
             </div>
@@ -296,67 +304,67 @@
         
         <div class="logo-container">
             
-            <a 
-                href="Valve_Catalog_Page_lh1zmn.html"
+            <div 
                 class="sphere-group valves-pos" 
+                onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1760118768/Valve_Catalog_Page_lh1zmn.html')"
             >
                 <div class="sphere-title">Valves</div>
                 <div class="sphere-container">
                     <img src="https://res.cloudinary.com/df3vec980/image/upload/v1/s-l1600_lm6t4k" alt="Hydraulic Valve Sphere">
                 </div>
-            </a>
+            </div>
             
-            <a 
-                href="Section_Two_Catalog_Overview_Clamps_gmgmvy.html"
+            <div 
                 class="sphere-group clamps-pos" 
+                onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1760453920/Section_Two_Catalog_Overview_Clamps_gmgmvy.html')"
             >
                 <div class="sphere-title">Clamps</div>
                 <div class="sphere-container">
                     <img src="https://res.cloudinary.com/df3vec980/image/upload/v1760369318/Z-5965_jpzvt8.bmp" alt="Hydraulic Clamp Sphere">
                 </div>
-            </a>
+            </div>
 
-            <a 
-                href="Page_Two_qlbjul.html"
+            <div 
                 class="sphere-group harness-pos" 
+                onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1760042628/Page_Two_qlbjul.html')"
             >
                 <div class="sphere-title">Harness</div>
                 <div class="sphere-container">
                     <img src="https://res.cloudinary.com/df3vec980/image/upload/v1760370779/A-0122_d5ie7g.jpg" alt="Hydraulic Harness Sphere">
                 </div>
-            </a>
+            </div>
 
-            <a 
-                href="Page_Two_qlbjul.html"
+            <div 
                 class="sphere-group hose-pos" 
+                onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1760042628/Page_Two_qlbjul.html')"
             >
                 <div class="sphere-title">Hose</div>
                 <div class="sphere-container">
                     <img src="https://res.cloudinary.com/df3vec980/image/upload/v1760372109/H-6605_uzqvia.jpg" alt="Hydraulic Hose Sphere">
                 </div>
-            </a>
+            </div>
 
-            <a 
-                href="Page_Two_qlbjul.html"
+            <div 
                 class="sphere-group fittings-pos" 
+                onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1760042628/Page_Two_qlbjul.html')"
             >
                 <div class="sphere-title">Fittings</div>
                 <div class="sphere-container">
                     <img src="https://res.cloudinary.com/df3vec980/image/upload/v1760372412/Z-6418_doqon4.jpg" alt="Hydraulic Fittings Sphere">
                 </div>
-            </a>
+            </div>
 
-            <a 
-                href="mailto:parts@hctkits.com"
+            <div 
                 class="sphere-group chat-pos" 
+                onclick="window.location.href = 'mailto:parts@hctkits.com';"
             >
                 <div class="sphere-title">Chat With Sales</div>
                 <div class="sphere-container">
                     <img src="https://res.cloudinary.com/df3vec980/image/upload/v1760372634/Jason_Avatar_zd5aka.png" alt="Sales Agent Avatar Sphere">
                 </div>
-            </a>
+            </div>
 
-            <img src="https://res.cloudinary.com/df3vec980/image/upload/v1760039401/HCT_NEW_LOGO_2025_ezn39r.png" alt="HCT New Logo 2025">
+            <img src="https://res.cloudinary.com/df3vec980/image/upload/v1762880955/HCT_NEW_LOGO_2025_ezn39r.png" alt="HCT New Logo 2025">
         </div>
     </div>
     
@@ -367,5 +375,4 @@
     </div>
 
 </body>
-
 </html>
