@@ -17,10 +17,22 @@
                 filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
             }
         }
+        
+        /* FIX: Stabilize background in a separate, full-screen container */
+        .background-fix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, #B83227, red);
+            z-index: -1; /* Place behind all content */
+        }
 
         /* Global Styles & Background */
         body {
-            background: linear-gradient(to top, #B83227, red);
+            /* Background moved to .background-fix */
+            background: transparent; 
             margin: 0;
             padding: 0;
             min-height: 100vh; 
@@ -33,7 +45,7 @@
             color: white;
             text-align: center;
             overflow-x: hidden; 
-            overflow-y: hidden; 
+            overflow-y: auto; /* Ensure mobile can scroll content if necessary */
         }
 
         /* --- Header Area (Holds HOME and CATALOG) --- */
@@ -164,48 +176,25 @@
         
         /* --- SPHERE GROUP SHARED STYLING --- */
         .sphere-group {
-            position: absolute;
+            position: absolute; /* Default wide-screen positioning */
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            z-index: 25;
+            /* FIX: Increased z-index to ensure touch events register over logo */
+            z-index: 50; 
             cursor: pointer;
         }
 
-        /* --- LEFT SIDE POSITIONS --- */
-        /* Valves (Top Left - Offset Right) */
-        .sphere-group.valves-pos {
-            top: 0px; 
-            left: -210px; 
-        }
-        /* Clamps (Middle Left - Base) */
-        .sphere-group.clamps-pos {
-            top: 200px; 
-            left: -250px; 
-        }
-        /* Harness (Bottom Left - Offset Right) */
-        .sphere-group.harness-pos {
-            top: 400px; 
-            left: -210px; 
-        }
-
-        /* --- RIGHT SIDE POSITIONS (Symmetrical to Left) --- */
-        /* Hose (Top Right - Offset Left) */
-        .sphere-group.hose-pos {
-            top: 0px; 
-            right: -210px; 
-        }
-        /* Fittings (Middle Right - Base) */
-        .sphere-group.fittings-pos {
-            top: 200px; 
-            right: -250px; 
-        }
-        /* Chat With Sales (Bottom Right - Offset Left) */
-        .sphere-group.chat-pos {
-            top: 400px; 
-            right: -210px; 
-        }
+        /* --- WIDE SCREEN POSITIONS (Desktop) --- */
+        /* Using absolute center + margin for reliable offsets */
+        .sphere-group.valves-pos { top: 0px; left: 50%; margin-left: -400px; } 
+        .sphere-group.clamps-pos { top: 200px; left: 50%; margin-left: -440px; } 
+        .sphere-group.harness-pos { top: 400px; left: 50%; margin-left: -400px; } 
+        
+        .sphere-group.hose-pos { top: 0px; left: 50%; margin-left: 250px; } 
+        .sphere-group.fittings-pos { top: 200px; left: 50%; margin-left: 300px; } 
+        .sphere-group.chat-pos { top: 400px; left: 50%; margin-left: 250px; } 
 
         /* --- SPHERE TITLE STYLING --- */
         .sphere-title {
@@ -263,6 +252,43 @@
             color: white; 
             text-decoration: underline; 
         }
+        
+        /* ============================================== */
+        /* --- MOBILE/NARROW SCREEN ADJUSTMENTS --- */
+        /* ============================================== */
+        @media (max-width: 768px) {
+            .logo-container {
+                /* FIX: Removes absolute anchor on mobile */
+                position: static; 
+                margin-bottom: 40px;
+            }
+
+            .sphere-group {
+                /* FIX: Changes from absolute positioning to normal block flow */
+                position: static;
+                margin: 20px auto; 
+                width: 100%;
+                /* Ensures all icons stack vertically and are centered */
+                align-items: center; 
+                text-align: center;
+                /* Resetting desktop offsets */
+                left: 0;
+                right: 0;
+                top: auto; 
+                margin-left: 0 !important; 
+            }
+            
+            /* Reduce size of icons slightly on mobile */
+            .sphere-container {
+                width: 120px; 
+                height: 120px;
+            }
+
+            /* Stack logo title below the logo image */
+            .center-stack {
+                 flex-direction: column;
+            }
+        }
     </style>
     
     <script>
@@ -277,6 +303,7 @@
     </script>
 </head>
 <body>
+    <div class="background-fix"></div>
 
     <header>
         <a href="https://www.hctkits.com" class="home-link">HOME</a>
@@ -312,6 +339,8 @@
         </div>
         
         <div class="logo-container">
+            
+            <img src="https://res.cloudinary.com/df3vec980/image/upload/v1762880955/HCT_NEW_LOGO_2025_ezn39r.png" alt="HCT New Logo 2025">
             
             <div 
                 class="sphere-group valves-pos" 
@@ -373,7 +402,6 @@
                 </div>
             </div>
 
-            <img src="https://res.cloudinary.com/df3vec980/image/upload/v1762880955/HCT_NEW_LOGO_2025_ezn39r.png" alt="HCT New Logo 2025">
         </div>
     </div>
     
