@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://pool01.uwebchat.com/webchat-button.css">
+    <script src="https://pool01.uwebchat.com/webchat-button.js"></script>
     <title>HydrauliCircuit Technology - Home</title>
     <style>
         /* --- ANIMATION KEYFRAMES FOR PULSING GLOW --- */
@@ -300,6 +303,10 @@
             const proxyUrl = 'https://htmlpreview.github.io/?' + encodeURIComponent(rawUrl);
             window.open(proxyUrl, '_blank');
         }
+        
+        // NOTE: The toggleWebChat() function is now provided by the 
+        // uwebchat-button.js file included in the <head>.
+        // This script block is only kept for openProxyLink.
     </script>
 </head>
 <body>
@@ -394,7 +401,7 @@
 
             <div 
                 class="sphere-group chat-pos" 
-                onclick="window.location.href = 'mailto:parts@hctkits.com';"
+                onclick="toggleWebChat(); return false;"
             >
                 <div class="sphere-title">Chat With Sales</div>
                 <div class="sphere-container">
@@ -411,5 +418,17 @@
         Contact us at <a href="mailto:parts@hctkits.com">parts@hctkits.com</a> or call 1-888-603-0080
     </div>
 
-</body>
+    <div>
+        <button id="uwebchat-open-button" class="uwebchat-open-button" onclick="toggleWebChat(); return false;"></button>
+        
+        <div id="uwebchat-popup" class="uwebchat-chat-popup">
+            <button class="uwebchat-close-button" onclick="toggleWebChat(); return false;">X</button>
+            <iframe 
+                allow="microphone" 
+                class="uwebchat-window-style" 
+                src="https://pool01.uwebchat.com/uwebchat.html?agent=47c4eaa2-799b-4999-867e-a999df3f74ff&customer=c37a3acd-517f-4c2f-a995-4723f4209637"
+            ></iframe>
+        </div>
+    </div>
+    </body>
 </html>
