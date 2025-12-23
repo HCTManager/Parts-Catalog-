@@ -2,421 +2,607 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HydrauliCircuit Technology - Home</title>
     
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Stardos+Stencil:wght@700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://pool01.uwebchat.com/webchat-button.css">
     <script src="https://pool01.uwebchat.com/webchat-button.js"></script>
-    <title>HydrauliCircuit Technology - Home</title>
+    
     <style>
-        /* --- ANIMATION KEYFRAMES FOR PULSING GLOW --- */
-        @keyframes glow {
-            0% {
-                filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
-            }
-            50% {
-                filter: drop-shadow(0 0 50px rgba(255, 255, 255, 1));
-            }
-            100% {
-                filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
-            }
+        /* --- 1. CORE THEME --- */
+        :root {
+            --brand-red: #d80000;
+            --brand-dark: #1a1a1a;
+            --sidebar-width: 280px;
+        }
+
+        body { 
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0; padding: 0; min-height: 100vh; 
+            display: flex; flex-direction: column; align-items: center; 
+            font-family: 'Montserrat', sans-serif; 
+            color: #333; overflow-x: hidden; 
+        }
+
+        /* --- 2. HEADER --- */
+        header { 
+            width: 100%; height: 80px; background: white; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+            display: grid; grid-template-columns: 1fr auto 1fr; 
+            align-items: center; padding: 0 40px; box-sizing: border-box; 
+            position: sticky; top: 0; z-index: 1000;
+        }
+
+        .header-left { justify-self: start; }
+        .home-link { 
+            color: var(--brand-dark); font-size: 16px; font-weight: 800; 
+            text-decoration: none; display: flex; align-items: center; 
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .home-link::before { content: "■"; color: var(--brand-red); margin-right: 8px; font-size: 20px; }
+
+        .header-center { justify-self: center; display: flex; justify-content: center; }
+        .header-logo { height: 60px; width: auto; object-fit: contain; }
+
+        .header-right { justify-self: end; position: relative; height: 100%; display: flex; align-items: center; }
+        
+        .dropbtn { 
+            background-color: var(--brand-red); color: white; border: none; 
+            padding: 10px 24px; font-size: 14px; font-weight: 700; 
+            border-radius: 4px; cursor: pointer; transition: 0.2s; letter-spacing: 1px;
+        }
+        .dropbtn:hover { background-color: #b00000; transform: translateY(-2px); }
+        
+        .dropdown-content { 
+            display: none; position: absolute; top: 70px; right: 0;
+            background-color: transparent; padding-top: 15px; z-index: 2000; 
+        }
+        .dropdown-inner {
+            background-color: white; min-width: 240px; 
+            box-shadow: 0px 8px 24px rgba(0,0,0,0.2); 
+            border-radius: 6px; overflow: hidden; border: 1px solid #eee;
+        }
+        .dropdown-inner a { 
+            color: #333; padding: 14px 20px; text-decoration: none; 
+            display: block; font-size: 14px; font-weight: 600; border-bottom: 1px solid #f0f0f0;
+        }
+        .dropdown-inner a:hover { background-color: #f9f9f9; color: var(--brand-red); padding-left: 25px; transition: 0.2s; }
+        .header-right:hover .dropdown-content { display: block; }
+
+        /* --- 3. PAGE LAYOUT WRAPPER --- */
+        .page-wrapper {
+            display: flex; width: 100%; max-width: 1600px;
+            padding: 40px 20px; gap: 40px; box-sizing: border-box;
+            flex-grow: 1; align-items: flex-start;
+        }
+
+        /* --- 4. SIDEBAR MENU & SUBMENUS --- */
+        .left-sidebar {
+            width: var(--sidebar-width); background: white;
+            border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 25px; flex-shrink: 0; position: sticky; top: 100px;
+            /* FIX: High Z-Index to stay above main content */
+            z-index: 900; 
+        }
+
+        .sidebar-title {
+            font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 16px;
+            color: var(--brand-dark); padding-bottom: 15px; margin-bottom: 15px;
+            border-bottom: 2px solid var(--brand-red); line-height: 1.4; text-transform: uppercase;
+        }
+
+        .sidebar-menu { list-style: none; padding: 0; margin: 0; }
+        .sidebar-menu li { 
+            margin-bottom: 10px; 
+            position: relative; /* Anchors the submenu */
         }
         
-        /* FIX: Stabilize background in a separate, full-screen container */
-        .background-fix {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, #B83227, red);
-            z-index: -1; /* Place behind all content */
-        }
-
-        /* Global Styles & Background */
-        body {
-            /* Background moved to .background-fix */
-            background: transparent; 
-            margin: 0;
-            padding: 0;
-            min-height: 100vh; 
-            display: flex; 
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between; 
-            font-family: Arial, sans-serif;
-            position: relative;
-            color: white;
-            text-align: center;
-            overflow-x: hidden; 
-            overflow-y: auto; /* Ensure mobile can scroll content if necessary */
-        }
-
-        /* --- Header Area (Holds HOME and CATALOG) --- */
-        header {
-            width: 100%;
-            position: relative; 
-            height: 60px; 
-            padding-top: 10px;
+        .sidebar-link {
+            display: block; text-decoration: none; color: #555;
+            font-size: 14px; font-weight: 600; padding: 10px 15px;
+            background: #f9f9f9; border-radius: 4px; border-left: 3px solid transparent;
+            transition: all 0.2s; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
         }
         
-        /* HOME Link (Top Left) */
-        .home-link {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            text-decoration: none;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-            z-index: 30;
+        .sidebar-link:hover {
+            background: #fff0f0; color: var(--brand-red);
+            border-left: 3px solid var(--brand-red); padding-left: 20px;
         }
-        .home-link:hover {
-            text-decoration: underline;
-        }
+        
+        .sidebar-link::after { content: "›"; font-size: 18px; line-height: 0; margin-top: -2px; color: #aaa; }
+        .sidebar-link:hover::after { color: var(--brand-red); }
 
-        /* Dropdown Menu (Top Right) */
-        .dropdown {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            display: inline-block;
-            z-index: 30;
-        }
-
-        /* Dropdown Button Styling */
-        .dropbtn {
-            background-color: #000000; 
-            color: white; 
-            padding: 10px 20px;
-            font-size: 18px;
-            font-weight: bold;
-            border: 2px solid #333333;
-            border-radius: 6px;
-            box-shadow: 0 4px 0 0 #333333;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); 
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropbtn:hover {
-            background-color: #1a1a1a;
-            transform: translateY(-1px);
-            box-shadow: 0 5px 0 0 #333333; 
-        }
-
-        .dropdown-content {
+        /* The Submenu (Flyout) */
+        .sidebar-submenu {
             display: none;
             position: absolute;
-            background-color: #f9f9f9;
-            min-width: 250px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 100;
-            right: 0; 
-            top: 100%; 
-            border-radius: 6px;
-            overflow: hidden; 
+            left: 100%; /* Fly out to the right */
+            top: 0;
+            width: 220px;
+            background: white;
+            box-shadow: 4px 4px 20px rgba(0,0,0,0.15);
+            border-radius: 4px;
+            padding: 10px 0;
+            list-style: none;
+            /* FIX: Z-Index ensures it's above everything */
+            z-index: 1000;
+            margin-left: 10px; /* Small visual gap */
+            border: 1px solid #eee;
         }
 
-        .dropdown-content .nav-link {
-            color: #333;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-            font-size: 16px;
-            font-weight: bold;
-            transition: background-color 0.1s;
-        }
-
-        .dropdown-content .nav-link:hover {
-            background-color: #f0f0f0;
-            color: #c00000;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        /* --- LOGO and TITLE AREA (Center Stack) --- */
-        .center-stack {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 10px; 
-            margin-bottom: 10px;
-            width: 95%;
-        }
-
-        /* Title: "HydrauliCircuit Technology Parts" */
-        .hero-title {
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            font-size: 40px; 
-            font-weight: bold; 
-            color: white;
-            margin-bottom: 0px; 
-            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8); 
-            line-height: 1.1; 
-            padding-top: 0; 
-        }
-
-        /* HCT LOGO with PULSING GLOW */
-        .logo-container {
-            animation: glow 3s infinite alternate; 
-            margin-top: 5px; 
-            margin-bottom: 5px;
-            position: relative; 
-        }
-        .logo-container img {
-            max-width: min(1000px, 90vw); 
-            max-height: 75vh; 
-            height: auto;
-            width: auto;
-            display: block;
-        }
-        
-        /* --- SPHERE GROUP SHARED STYLING --- */
-        .sphere-group {
-            position: absolute; /* Default wide-screen positioning */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            /* FIX: Increased z-index to ensure touch events register over logo */
-            z-index: 50; 
-            cursor: pointer;
-        }
-
-        /* --- WIDE SCREEN POSITIONS (Desktop) --- */
-        /* Using absolute center + margin for reliable offsets */
-        .sphere-group.valves-pos { top: 0px; left: 50%; margin-left: -400px; } 
-        .sphere-group.clamps-pos { top: 200px; left: 50%; margin-left: -440px; } 
-        .sphere-group.harness-pos { top: 400px; left: 50%; margin-left: -400px; } 
-        
-        .sphere-group.hose-pos { top: 0px; left: 50%; margin-left: 250px; } 
-        .sphere-group.fittings-pos { top: 200px; left: 50%; margin-left: 300px; } 
-        .sphere-group.chat-pos { top: 400px; left: 50%; margin-left: 250px; } 
-
-        /* --- SPHERE TITLE STYLING --- */
-        .sphere-title {
-            color: white; 
-            font-size: 24px;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-            margin-bottom: 5px; 
-            transition: color 0.3s;
-        }
-        
-        /* Highlight title and scale sphere on group hover */
-        .sphere-group:hover .sphere-title {
-            color: yellow; 
-        }
-        .sphere-group:hover .sphere-container {
-            transform: scale(1.05); 
-        }
-        .sphere-group:hover .sphere-container img {
-            transform: rotateY(180deg); 
-        }
-
-        /* --- SPHERE IMAGE STYLING --- */
-        .sphere-container {
-            width: 150px; 
-            height: 150px; 
-            border-radius: 50%; 
-            overflow: hidden; 
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); 
-            transition: transform 0.5s ease; 
-            perspective: 1000px; 
-        }
-
-        .sphere-container img {
-            width: 100%; 
+        /* FIX: INVISIBLE BRIDGE - Widened to 30px */
+        .sidebar-submenu::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -30px; /* Wider grab area to prevent disappearing */
+            width: 30px; 
             height: 100%;
-            object-fit: cover; 
-            border-radius: 50%; 
-            transition: transform 0.5s ease; 
-        }
-
-        /* --- Footer Contact Caption --- */
-        .footer-caption {
-            padding: 10px 0; 
-            color: white;
-            font-family: Arial, sans-serif;
-            font-size: 18px; 
-            text-align: center;
-            line-height: 1.3; 
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); 
-            width: 100%;
-        }
-
-        .footer-caption a {
-            color: white; 
-            text-decoration: underline; 
+            background: transparent;
         }
         
-        /* ============================================== */
-        /* --- MOBILE/NARROW SCREEN ADJUSTMENTS --- */
-        /* ============================================== */
-        @media (max-width: 768px) {
-            .logo-container {
-                /* FIX: Removes absolute anchor on mobile */
-                position: static; 
-                margin-bottom: 40px;
-            }
+        /* Show on Hover */
+        .sidebar-menu li:hover .sidebar-submenu { display: block; }
 
-            .sphere-group {
-                /* FIX: Changes from absolute positioning to normal block flow */
-                position: static;
-                margin: 20px auto; 
-                width: 100%;
-                /* Ensures all icons stack vertically and are centered */
-                align-items: center; 
-                text-align: center;
-                /* Resetting desktop offsets */
-                left: 0;
-                right: 0;
-                top: auto; 
-                margin-left: 0 !important; 
-            }
+        .sidebar-submenu li a {
+            display: block; text-decoration: none; color: #666;
+            font-size: 13px; font-weight: 500; padding: 8px 20px;
+            transition: 0.2s; border-left: 2px solid transparent;
+        }
+        
+        .sidebar-submenu li a:hover {
+            color: var(--brand-red); background: #fafafa;
+            border-left: 2px solid var(--brand-red); padding-left: 25px;
+        }
+
+        /* --- 5. MAIN STAGE --- */
+        .main-stage { 
+            display: flex; flex-direction: column; align-items: center;
+            flex-grow: 1; width: 100%; 
+            /* FIX: Low z-index to stay under sidebar */
+            position: relative; z-index: 5; 
+        }
+
+        .parts-header {
+            width: 100%; text-align: center;
+            font-family: 'Stardos Stencil', cursive; font-size: 100px; color: var(--brand-red);
+            text-shadow: 4px 4px 0 #333; margin-bottom: 30px; line-height: 1;
+            animation: slide-down 0.8s ease-out;
+        }
+
+        .hex-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 40px 40px; margin-bottom: 60px; width: 100%;
+        }
+
+        /* --- 6. HEXAGONS --- */
+        .hex-wrapper { 
+            display: flex; flex-direction: column; align-items: center; cursor: pointer; z-index: 10;
+        }
+        .hex-group { position: relative; width: 150px; height: 165px; }
+        .hex-shadow {
+            position: absolute; top: 15px; left: 15px; width: 100%; height: 100%;
+            background: rgba(216, 0, 0, 0.5); 
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            filter: blur(8px); z-index: -1; transition: all 0.4s ease;
+        }
+        .hex-shape {
+            width: 100%; height: 100%; background: white; 
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex; justify-content: center; align-items: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 2; 
+        }
+        .hex-shape img { 
+            width: 101%; height: 101%; object-fit: cover; 
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            transition: transform 0.4s ease; 
+        }
+        .hex-title {
+            margin-bottom: 15px; font-weight: 800; text-transform: uppercase; font-size: 14px; 
+            color: #555; text-align: center; transition: 0.3s; letter-spacing: 1px;
+        }
+        .hex-wrapper:hover .hex-shape {
+            transform: scale(1.3) rotate(6deg); background: var(--brand-red); 
+            filter: drop-shadow(0 0 10px rgba(216, 0, 0, 0.8)) drop-shadow(0 0 25px rgba(216, 0, 0, 0.6));
+        }
+        .hex-wrapper:hover .hex-shadow { transform: translate(-5px, -5px); opacity: 0.8; }
+        .hex-wrapper:hover .hex-shape img { transform: scale(0.92); } 
+        .hex-wrapper:hover .hex-title { color: var(--brand-red); transform: scale(1.1); text-shadow: 0 0 10px rgba(216,0,0,0.2); }
+
+        /* --- 7. MARQUEE --- */
+        .marquee-section { width: 100%; max-width: 1000px; margin-top: 20px; }
+        .marquee-viewport {
+            width: 100%; overflow: hidden; position: relative;
+            background: white; border-radius: 8px; border: 1px solid #ddd;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05); padding: 10px 0;
+        }
+        .marquee-track { display: flex; width: 350%; animation: scroll-circle 25s linear infinite; }
+        .marquee-track:hover { animation-play-state: paused; }
+        .marquee-item { flex: 1; padding: 0 4px; box-sizing: border-box; display: flex; justify-content: center; align-items: center; }
+        .marquee-item img {
+            width: 100%; height: 240px; object-fit: contain; cursor: zoom-in; transition: transform 0.2s; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+        }
+        .marquee-item img:hover { transform: scale(1.05); }
+        @keyframes scroll-circle { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes slide-down { 0% { transform: translateY(-50px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+
+        /* --- 8. TRUST BAR --- */
+        .trust-section { width: 100%; background: #fff; border-top: 4px solid #eee; margin-top: 60px; padding: 60px 20px; }
+        .trust-container { max-width: 1100px; margin: 0 auto; }
+        .trust-title { text-align: center; font-family: 'Stardos Stencil', cursive; font-size: 36px; color: var(--brand-dark); margin-bottom: 40px; letter-spacing: 2px; }
+        .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .trust-col { text-align: left; padding: 0 10px; border-left: 2px solid var(--brand-red); padding-left: 20px; }
+        .trust-col h3 { color: var(--brand-red); font-size: 18px; font-weight: 800; margin: 0 0 15px 0; text-transform: uppercase; }
+        .trust-col p { font-size: 14px; line-height: 1.6; color: #555; margin: 0; }
+        .cta-button { display: inline-block; margin-top: 15px; background: var(--brand-dark); color: white; padding: 8px 16px; text-decoration: none; font-size: 12px; font-weight: bold; border-radius: 4px; transition: 0.2s; }
+        .cta-button:hover { background: var(--brand-red); }
+
+        /* --- 9. SEARCH BAR --- */
+        .search-strip { width: 100%; background: var(--brand-red); padding: 30px 20px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 10px 20px rgba(0,0,0,0.2); }
+        .search-container { width: 100%; max-width: 600px; display: flex; gap: 10px; }
+        .search-input { flex: 1; padding: 15px 20px; font-size: 16px; border: none; border-radius: 4px; font-family: 'Montserrat', sans-serif; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .search-btn { background: var(--brand-dark); color: white; border: none; padding: 0 30px; font-weight: 800; font-size: 16px; cursor: pointer; border-radius: 4px; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .search-btn:hover { background: #333; }
+
+        /* --- 10. MODAL FOR WINDOW GUARDS --- */
+        .modal {
+            display: none; position: fixed; z-index: 5000; left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.85); backdrop-filter: blur(5px);
+            align-items: center; justify-content: center;
+        }
+        .modal-content {
+            background-color: white; padding: 40px; border-radius: 12px; width: 90%; max-width: 800px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); text-align: center; position: relative;
+        }
+        .close-btn {
+            position: absolute; top: 15px; right: 20px; color: #aaa; font-size: 28px; font-weight: bold; cursor: pointer; transition: 0.2s;
+        }
+        .close-btn:hover { color: var(--brand-red); }
+        .modal-title {
+            font-family: 'Stardos Stencil', cursive; font-size: 32px; color: var(--brand-dark); margin-bottom: 30px; border-bottom: 2px solid var(--brand-red); display: inline-block; padding-bottom: 10px;
+        }
+        .manufacturer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; justify-items: center; align-items: center;
+        }
+        .manu-link {
+            display: flex; align-items: center; justify-content: center;
+            width: 140px; height: 80px; border: 2px solid #eee; border-radius: 8px;
+            padding: 10px; transition: all 0.2s ease; background: white;
+        }
+        .manu-link:hover {
+            border-color: var(--brand-red); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .manu-link img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+        /* --- 11. FOOTER --- */
+        footer { background: var(--brand-dark); color: #888; padding: 30px 20px; width: 100%; margin-top: 0; border-top: 1px solid #333; box-sizing: border-box; }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; font-size: 13px; }
+        
+        #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 3000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        #lightbox img { max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 0 40px rgba(0,0,0,0.5); }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .page-wrapper { flex-direction: column; align-items: center; }
+            .left-sidebar { width: 100%; max-width: 600px; position: static; margin-bottom: 40px; }
             
-            /* Reduce size of icons slightly on mobile */
-            .sphere-container {
-                width: 120px; 
-                height: 120px;
+            /* On mobile, sidebar submenus should just appear below, not fly out */
+            .sidebar-submenu {
+                position: static; box-shadow: none; border: 1px solid #f0f0f0; margin-left: 0; width: 100%;
+                display: none; 
             }
-
-            /* Stack logo title below the logo image */
-            .center-stack {
-                 flex-direction: column;
-            }
+            .sidebar-menu li:hover .sidebar-submenu { display: block; }
+            
+            .hex-grid { grid-template-columns: repeat(3, 1fr); } 
+            .marquee-track { width: 500%; }
+        }
+        @media (max-width: 900px) {
+            .hex-grid { grid-template-columns: repeat(2, 1fr); }
+            .trust-grid { grid-template-columns: 1fr; gap: 30px; }
+            .trust-col { border-left: none; border-top: 2px solid var(--brand-red); padding-left: 0; padding-top: 15px; }
+        }
+        @media (max-width: 600px) {
+            .hex-grid { grid-template-columns: 1fr; } 
+            .parts-header { font-size: 60px; }
+            .search-container { flex-direction: column; }
         }
     </style>
-    
-    <script>
-        /**
-         * Uses a third-party proxy service (htmlpreview.github.io) to load the
-         * raw Cloudinary URL, forcing it to render as HTML in a new tab.
-         */
-        function openProxyLink(rawUrl) {
-            const proxyUrl = 'https://htmlpreview.github.io/?' + encodeURIComponent(rawUrl);
-            window.open(proxyUrl, '_blank');
-        }
-        
-        // NOTE: The toggleWebChat() function is now provided by the 
-        // uwebchat-button.js file included in the <head>.
-        // This script block is only kept for openProxyLink.
-    </script>
 </head>
 <body>
-    <div class="background-fix"></div>
+
+    <div id="lightbox" onclick="closeLightbox()"><img id="lightbox-img" src=""></div>
+
+    <div id="windowGuardModal" class="modal" onclick="closeWindowGuardModal(event)">
+        <div class="modal-content">
+            <span class="close-btn" onclick="document.getElementById('windowGuardModal').style.display='none'">&times;</span>
+            <div class="modal-title">SELECT MANUFACTURER</div>
+            <div class="manufacturer-grid">
+                <a href="javascript:void(0)" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1766435694/Case_Window_Guard_break_out_sq7qlm.html')" class="manu-link">
+                    <img src="https://res.cloudinary.com/df3vec980/image/upload/v1766428844/CASE_Construction_logo_snb6j5.png" alt="Case">
+                </a>
+                <a href="javascript:void(0)" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1766435696/Hitachi_Window_Guard_break_out_qdhalf.html')" class="manu-link">
+                    <img src="https://res.cloudinary.com/df3vec980/image/upload/v1766432020/Hitachi_Logo_gmgrjo.png" alt="Hitachi">
+                </a>
+                <a href="javascript:void(0)" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1766435699/John_Deere_Window_Guard_break_out_rjzhcw.html')" class="manu-link">
+                    <img src="https://res.cloudinary.com/df3vec980/image/upload/v1766434104/John-Deere-Logo_ec1nle.png" alt="John Deere">
+                </a>
+                <a href="javascript:void(0)" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1766435701/Kobelco_Window_Guard_break_out_rxn4qi.html')" class="manu-link">
+                    <img src="https://res.cloudinary.com/df3vec980/image/upload/v1766434701/kobelco-america-1-logo-png-transparent_elq4da.png" alt="Kobelco">
+                </a>
+                <a href="javascript:void(0)" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1766435704/Komatsu_Window_Guard_break_out_lo28ea.html')" class="manu-link">
+                    <img src="https://res.cloudinary.com/df3vec980/image/upload/v1766435217/komatsu_logo_gbuhzp.png" alt="Komatsu">
+                </a>
+            </div>
+        </div>
+    </div>
 
     <header>
-        <a href="https://www.hctkits.com" class="home-link">HOME</a>
-        
-        <div class="dropdown">
-            <a href="#" class="dropbtn">CATALOG ▾</a>
+        <div class="header-left">
+            <a href="https://www.hctkits.com" class="home-link">HCT HOME</a>
+        </div>
+        <div class="header-center">
+            <img src="https://hctkits.com/wp-content/themes/schydrauli/images/logo2x.png" alt="HCT Logo" class="header-logo">
+        </div>
+        <div class="header-right">
+            <button class="dropbtn">CATALOG ▾</button>
             <div class="dropdown-content">
-                <a href="javascript:void(0)" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1760042628/Page_Two_qlbjul.html')" class="nav-link">
-                    Go To Product Groups
-                </a>
-                <a href="javascript:void(0)" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1760118768/Valve_Catalog_Page_lh1zmn.html')" class="nav-link">
-                    Valve Catalog Overview
-                </a>
-                <a href="javascript:void(0)" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1760453920/Section_Two_Catalog_Overview_Clamps_gmgmvy.html')" class="nav-link">
-                    Clamp Catalog Overview
-                </a>
-                <a href="javascript:void(0)" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1761242781/Harnes_Catalog_Page_ooyuvv.html')" class="nav-link">
-                    Harness Catalog Overview
-                </a>
-                <a href="javascript:void(0)" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1762983995/Coupler_Replacement_Hose_Catalog_Overview_nd37fo.html')" class="nav-link">
-                    Hose Catalog Overview
-                </a>
-                <a href="javascript:void(0)" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1763753206/Product_Catalog_Overview_Fittings_Pages_50-61_mtxudm.html')" class="nav-link">
-                    Fittings Catalog Overview
-                </a>
+                <div class="dropdown-inner">
+                    <a href="javascript:void(0)" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1760042628/Page_Two_qlbjul.html')">Product Groups</a>
+                    <a href="javascript:void(0)" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1760118768/Valve_Catalog_Page_lh1zmn.html')">Valve Catalog</a>
+                    <a href="javascript:void(0)" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1760453920/Section_Two_Catalog_Overview_Clamps_gmgmvy.html')">Clamp Catalog</a>
+                    <a href="javascript:void(0)" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1761242781/Harnes_Catalog_Page_ooyuvv.html')">Harness Catalog</a>
+                    <a href="javascript:void(0)" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1762983995/Coupler_Replacement_Hose_Catalog_Overview_nd37fo.html')">Hose Catalog</a>
+                    <a href="javascript:void(0)" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1763753206/Product_Catalog_Overview_Fittings_Pages_50-61_mtxudm.html')">Fittings Catalog</a>
+                </div>
             </div>
         </div>
     </header>
 
-    <div class="center-stack">
-        <div class="hero-title">
-            HydrauliCircuit Technology Parts
-        </div>
+    <div class="page-wrapper">
         
-        <div class="logo-container">
+        <aside class="left-sidebar">
+            <div class="sidebar-title">Quick Coupler Controller<br>Installation Guides</div>
+            <ul class="sidebar-menu">
+                <li>
+                    <span class="sidebar-link">John Deere - JD</span>
+                    <ul class="sidebar-submenu">
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">TAG</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Werk-Brau</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Strickland</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Rockland</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">AMI</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">H&amp;H</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Fleco</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="sidebar-link">Linkbelt / Case - LX</span>
+                    <ul class="sidebar-submenu">
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">TAG</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Werk-Brau</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Strickland</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Rockland</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">AMI</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">H&amp;H</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Fleco</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="sidebar-link">Wacker Neuson - WN</span>
+                    <ul class="sidebar-submenu">
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">TAG</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Werk-Brau</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Strickland</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Rockland</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">AMI</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">H&amp;H</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Fleco</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="sidebar-link">Kobelco - SK</span>
+                    <ul class="sidebar-submenu">
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">TAG</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Werk-Brau</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Strickland</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Rockland</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">AMI</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">H&amp;H</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Fleco</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="sidebar-link">Sany - SA</span>
+                    <ul class="sidebar-submenu">
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">TAG</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Werk-Brau</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Strickland</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Rockland</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">AMI</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">H&amp;H</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Fleco</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="sidebar-link">Takeuchi - TB</span>
+                    <ul class="sidebar-submenu">
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">TAG</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Werk-Brau</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Strickland</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Rockland</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">AMI</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">H&amp;H</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Fleco</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="sidebar-link">Komatsu - PC</span>
+                    <ul class="sidebar-submenu">
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">TAG</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Werk-Brau</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Strickland</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Rockland</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">AMI</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">H&amp;H</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Fleco</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="sidebar-link">Kubota - KB</span>
+                    <ul class="sidebar-submenu">
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">TAG</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Werk-Brau</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Strickland</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Rockland</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">AMI</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">H&amp;H</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Fleco</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="sidebar-link">Non-Machine-Specific</span>
+                    <ul class="sidebar-submenu">
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">TAG</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Werk-Brau</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Strickland</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Rockland</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">AMI</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">H&amp;H</a></li>
+                        <li><a href="javascript:void(0)" onclick="alert('Manuals coming soon!')">Fleco</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </aside>
+
+        <div class="main-stage">
             
-            <img src="https://res.cloudinary.com/df3vec980/image/upload/v1762880955/HCT_NEW_LOGO_2025_ezn39r.png" alt="HCT New Logo 2025">
-            
-            <div 
-                class="sphere-group valves-pos" 
-                onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1760118768/Valve_Catalog_Page_lh1zmn.html')"
-            >
-                <div class="sphere-title">Valves</div>
-                <div class="sphere-container">
-                    <img src="https://res.cloudinary.com/df3vec980/image/upload/v1/s-l1600_lm6t4k" alt="Hydraulic Valve Sphere">
+            <div class="parts-header">PARTS</div>
+
+            <div class="hex-grid">
+                <div class="hex-wrapper" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1760118768/Valve_Catalog_Page_lh1zmn.html')">
+                    <div class="hex-title">Valves</div>
+                    <div class="hex-group">
+                        <div class="hex-shadow"></div>
+                        <div class="hex-shape"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1/s-l1600_lm6t4k"></div>
+                    </div>
                 </div>
+                <div class="hex-wrapper" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1760453920/Section_Two_Catalog_Overview_Clamps_gmgmvy.html')">
+                    <div class="hex-title">Clamps</div>
+                    <div class="hex-group">
+                        <div class="hex-shadow"></div>
+                        <div class="hex-shape"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1760369318/Z-5965_jpzvt8.bmp"></div>
+                    </div>
+                </div>
+                <div class="hex-wrapper" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1761242781/Harnes_Catalog_Page_ooyuvv.html')">
+                    <div class="hex-title">Harness</div>
+                    <div class="hex-group">
+                        <div class="hex-shadow"></div>
+                        <div class="hex-shape"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1760370779/A-0122_d5ie7g.jpg"></div>
+                    </div>
+                </div>
+                
+                <div class="hex-wrapper" onclick="document.getElementById('windowGuardModal').style.display='flex'">
+                    <div class="hex-title">Window Guards</div>
+                    <div class="hex-group">
+                        <div class="hex-shadow"></div>
+                        <div class="hex-shape"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1766435937/Defender-Guard-3.1-new_h9vl3g.jpg"></div>
+                    </div>
+                </div>
+
+                <div class="hex-wrapper" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1762983995/Coupler_Replacement_Hose_Catalog_Overview_nd37fo.html')">
+                    <div class="hex-title">Hose</div>
+                    <div class="hex-group">
+                        <div class="hex-shadow"></div>
+                        <div class="hex-shape"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1760372109/H-6605_uzqvia.jpg"></div>
+                    </div>
+                </div>
+                <div class="hex-wrapper" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1763753206/Product_Catalog_Overview_Fittings_Pages_50-61_mtxudm.html')">
+                    <div class="hex-title">Fittings</div>
+                    <div class="hex-group">
+                        <div class="hex-shadow"></div>
+                        <div class="hex-shape"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1760372412/Z-6418_doqon4.jpg"></div>
+                    </div>
+                </div>
+                
+                <div class="hex-wrapper" onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1766516684/Custom_Order_Form_joggh4.html')">
+                    <div class="hex-title">Product Request</div>
+                    <div class="hex-group">
+                        <div class="hex-shadow"></div>
+                        <div class="hex-shape"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1759765241/Tube_Clamp_1_sgigz6.bmp" alt="Product Request"></div>
+                    </div>
+                </div>
+
+                <div class="hex-wrapper" onclick="toggleWebChat(); return false;">
+                    <div class="hex-title">Chat With Sales</div>
+                    <div class="hex-group">
+                        <div class="hex-shadow"></div>
+                        <div class="hex-shape"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1760372634/Jason_Avatar_zd5aka.png"></div>
+                    </div>
+                </div>
+
             </div>
-            
-            <div 
-                class="sphere-group clamps-pos" 
-                onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1760453920/Section_Two_Catalog_Overview_Clamps_gmgmvy.html')"
-            >
-                <div class="sphere-title">Clamps</div>
-                <div class="sphere-container">
-                    <img src="https://res.cloudinary.com/df3vec980/image/upload/v1760369318/Z-5965_jpzvt8.bmp" alt="Hydraulic Clamp Sphere">
+
+            <div class="marquee-section">
+                <div class="marquee-viewport">
+                    <div class="marquee-track">
+                        <div class="marquee-item"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1759765187/PPM_1.1_ryzls0.png" onclick="openLightbox(this.src)"></div>
+                        <div class="marquee-item"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1759765187/PP_6_3_i22vps.png" onclick="openLightbox(this.src)"></div>
+                        <div class="marquee-item"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1759765185/PP_6_2_mbailt.png" onclick="openLightbox(this.src)"></div>
+                        <div class="marquee-item"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1759765183/PP_6_1_llbbad.png" onclick="openLightbox(this.src)"></div>
+                        <div class="marquee-item"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1759765164/Parts_Promo_card_front_xznpdx.png" onclick="openLightbox(this.src)"></div>
+                        <div class="marquee-item"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1759765151/Parts_Promo_card_Back_zrtkvu.png" onclick="openLightbox(this.src)"></div>
+                        <div class="marquee-item"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1759765146/Parts_Post_3_3_mxucyh.png" onclick="openLightbox(this.src)"></div>
+                        <div class="marquee-item"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1759765187/PPM_1.1_ryzls0.png" onclick="openLightbox(this.src)"></div>
+                        <div class="marquee-item"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1759765187/PP_6_3_i22vps.png" onclick="openLightbox(this.src)"></div>
+                        <div class="marquee-item"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1759765185/PP_6_2_mbailt.png" onclick="openLightbox(this.src)"></div>
+                        <div class="marquee-item"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1759765183/PP_6_1_llbbad.png" onclick="openLightbox(this.src)"></div>
+                        <div class="marquee-item"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1759765164/Parts_Promo_card_front_xznpdx.png" onclick="openLightbox(this.src)"></div>
+                        <div class="marquee-item"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1759765151/Parts_Promo_card_Back_zrtkvu.png" onclick="openLightbox(this.src)"></div>
+                        <div class="marquee-item"><img src="https://res.cloudinary.com/df3vec980/image/upload/v1759765146/Parts_Post_3_3_mxucyh.png" onclick="openLightbox(this.src)"></div>
+                    </div>
                 </div>
             </div>
 
-            <div 
-                class="sphere-group harness-pos" 
-                onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1761242781/Harnes_Catalog_Page_ooyuvv.html')"
-            >
-                <div class="sphere-title">Harness</div>
-                <div class="sphere-container">
-                    <img src="https://res.cloudinary.com/df3vec980/image/upload/v1760370779/A-0122_d5ie7g.jpg" alt="Hydraulic Harness Sphere">
+        </div> </div> <div class="trust-section">
+        <div class="trust-container">
+            <div class="trust-title">THE HCT DIFFERENCE</div>
+            <div class="trust-grid">
+                <div class="trust-col">
+                    <h3>Commitment to Quality</h3>
+                    <p>Our success stems from our commitment to manufacture the highest quality, most durable, after-market hydraulic kits available, backed up with an extremely comprehensive support system.</p>
+                </div>
+                <div class="trust-col">
+                    <h3>Live Inventory</h3>
+                    <p>Our manufacturing facility maintains a 25,000 square foot warehouse of live inventory to fill the need for fittings, hose and tube assemblies, valves, wiring harness kits, joystick controllers, and more.</p>
+                </div>
+                <div class="trust-col">
+                    <h3>Expert Support</h3>
+                    <p>Our customer support team is second to none in product knowledge. With a top tier Technical Assistance team, the troubleshooting process is thorough and complete.</p>
+                    <a href="mailto:parts@hctkits.com" class="cta-button">CALL SUPPORT TEAM</a>
                 </div>
             </div>
-
-            <div 
-                class="sphere-group hose-pos" 
-                onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1762983995/Coupler_Replacement_Hose_Catalog_Overview_nd37fo.html')"
-            >
-                <div class="sphere-title">Hose</div>
-                <div class="sphere-container">
-                    <img src="https://res.cloudinary.com/df3vec980/image/upload/v1760372109/H-6605_uzqvia.jpg" alt="Hydraulic Hose Sphere">
-                </div>
-            </div>
-
-            <div 
-                class="sphere-group fittings-pos" 
-                onclick="openProxyLink('https://res.cloudinary.com/df3vec980/raw/upload/v1763753206/Product_Catalog_Overview_Fittings_Pages_50-61_mtxudm.html')"
-            >
-                <div class="sphere-title">Fittings</div>
-                <div class="sphere-container">
-                    <img src="https://res.cloudinary.com/df3vec980/image/upload/v1760372412/Z-6418_doqon4.jpg" alt="Hydraulic Fittings Sphere">
-                </div>
-            </div>
-
-            <div 
-                class="sphere-group chat-pos" 
-                onclick="toggleWebChat(); return false;"
-            >
-                <div class="sphere-title">Chat With Sales</div>
-                <div class="sphere-container">
-                    <img src="https://res.cloudinary.com/df3vec980/image/upload/v1760372634/Jason_Avatar_zd5aka.png" alt="Sales Agent Avatar Sphere">
-                </div>
-            </div>
-
         </div>
     </div>
-    
-    <div style="flex-grow: 1;"></div> 
 
-    <div class="footer-caption">
-        Contact us at <a href="mailto:parts@hctkits.com">parts@hctkits.com</a> or call 1-888-603-0080
+    <div class="search-strip">
+        <div class="search-container">
+            <input type="text" id="partInput" class="search-input" placeholder="Enter Part Number or Category (e.g., 'Z-6040')...">
+            <button onclick="searchPart()" class="search-btn">SEARCH</button>
+        </div>
     </div>
+
+    <footer>
+        <div class="footer-content">
+            <div>&copy; 2025 HydrauliCircuit Technology. All Rights Reserved.</div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="mailto:parts@hctkits.com">Contact Support</a>
+            </div>
+        </div>
+    </footer>
 
     <div>
         <button id="uwebchat-open-button" class="uwebchat-open-button" onclick="toggleWebChat(); return false;"></button>
@@ -430,5 +616,111 @@
             ></iframe>
         </div>
     </div>
-    </body>
+
+    <script>
+        function openProxyLink(rawUrl) {
+            const proxyUrl = 'https://htmlpreview.github.io/?' + encodeURIComponent(rawUrl);
+            window.open(proxyUrl, '_blank');
+        }
+        
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        function closeWindowGuardModal(event) {
+            // Close only if clicking the background overlay, not the content
+            if (event.target.id === 'windowGuardModal') {
+                document.getElementById('windowGuardModal').style.display = 'none';
+            }
+        }
+
+        // --- EXPANDED SEARCH DATABASE ---
+        const partDatabase = {
+            "VALVE": "https://res.cloudinary.com/df3vec980/raw/upload/v1760118768/Valve_Catalog_Page_lh1zmn.html",
+            "VALVES": "https://res.cloudinary.com/df3vec980/raw/upload/v1760118768/Valve_Catalog_Page_lh1zmn.html",
+            "CLAMP": "https://res.cloudinary.com/df3vec980/raw/upload/v1760453920/Section_Two_Catalog_Overview_Clamps_gmgmvy.html",
+            "CLAMPS": "https://res.cloudinary.com/df3vec980/raw/upload/v1760453920/Section_Two_Catalog_Overview_Clamps_gmgmvy.html",
+            "HARNESS": "https://res.cloudinary.com/df3vec980/raw/upload/v1761242781/Harnes_Catalog_Page_ooyuvv.html",
+            "WIRING": "https://res.cloudinary.com/df3vec980/raw/upload/v1761242781/Harnes_Catalog_Page_ooyuvv.html",
+            "HOSE": "https://res.cloudinary.com/df3vec980/raw/upload/v1762983995/Coupler_Replacement_Hose_Catalog_Overview_nd37fo.html",
+            "HOSES": "https://res.cloudinary.com/df3vec980/raw/upload/v1762983995/Coupler_Replacement_Hose_Catalog_Overview_nd37fo.html",
+            "FITTING": "https://res.cloudinary.com/df3vec980/raw/upload/v1763753206/Product_Catalog_Overview_Fittings_Pages_50-61_mtxudm.html",
+            "FITTINGS": "https://res.cloudinary.com/df3vec980/raw/upload/v1763753206/Product_Catalog_Overview_Fittings_Pages_50-61_mtxudm.html",
+            "H-6420": "https://res.cloudinary.com/df3vec980/raw/upload/v1762979270/page_fortyfive_rsp5ae.html",
+            "H-6434": "https://res.cloudinary.com/df3vec980/raw/upload/v1762980726/page_fortysix_mttztv.html",
+            "H-6605": "https://res.cloudinary.com/df3vec980/raw/upload/v1762983537/page_fortyseven_pawqzu.html",
+            "A-0122": "https://res.cloudinary.com/df3vec980/raw/upload/v1760988287/page_thirtyfive_znfkqf.html",
+            "E-0172": "https://res.cloudinary.com/df3vec980/raw/upload/v1760993470/page_thirtysix_ocp034.html",
+            "E-0174-43": "https://res.cloudinary.com/df3vec980/raw/upload/v1760991812/page_thirtyseven_d54xua.html",
+            "E-0222": "https://res.cloudinary.com/df3vec980/raw/upload/v1761057226/page_thirtyeight_adi7pf.html",
+            "Z-5998": "https://res.cloudinary.com/df3vec980/raw/upload/v1761068887/page_thirtynine_mdv1by.html",
+            "Z-6468": "https://res.cloudinary.com/df3vec980/raw/upload/v1761079440/page_forty_itmbso.html",
+            "Z-2275": "https://res.cloudinary.com/df3vec980/raw/upload/v1761080910/page_fortyone_xyjsa8.html",
+            "Z-6493": "https://res.cloudinary.com/df3vec980/raw/upload/v1761082051/page_fortytwo_sr447z.html",
+            "Z-6988": "https://res.cloudinary.com/df3vec980/raw/upload/v1760478193/Page_ninteen_jmdary.html",
+            "Z-6588": "https://res.cloudinary.com/df3vec980/raw/upload/v1760478204/Page_twenty_ccx5yi.html",
+            "Z-6987": "https://res.cloudinary.com/df3vec980/raw/upload/v1760478149/Page_twentyone_ul4zai.html",
+            "Z-6008": "https://res.cloudinary.com/df3vec980/raw/upload/v1760536931/page_twentytwo_ci2vlr.html",
+            "Z-6080": "https://res.cloudinary.com/df3vec980/raw/upload/v1760538483/page_twentythree_fptoy9.html",
+            "Z-5364": "https://res.cloudinary.com/df3vec980/raw/upload/v1760538958/page_twentyfour_phu7dr.html",
+            "Z-5440": "https://res.cloudinary.com/df3vec980/raw/upload/v1760541427/page_twentyfive_yfdjmp.html",
+            "Z-5965": "https://res.cloudinary.com/df3vec980/raw/upload/v1760542176/page_twentysix_vfffcd.html",
+            "Z-5966": "https://res.cloudinary.com/df3vec980/raw/upload/v1760553909/page_twentyseven_bp7bma.html",
+            "Z-5427": "https://res.cloudinary.com/df3vec980/raw/upload/v1760557277/page_twentyeight_wmdad4.html",
+            "Z-5429": "https://res.cloudinary.com/df3vec980/raw/upload/v1760557570/page_twentynine_rc8clb.html",
+            "Z-5429-32BO": "https://res.cloudinary.com/df3vec980/raw/upload/v1760557570/page_twentynine_rc8clb.html",
+            "Z-6811": "https://res.cloudinary.com/df3vec980/raw/upload/v1760557867/page_thirty_jberct.html",
+            "Z-6810": "https://res.cloudinary.com/df3vec980/raw/upload/v1760558232/page_thirtyone_vlhkxr.html",
+            "Z-6099": "https://res.cloudinary.com/df3vec980/raw/upload/v1760560719/page_thirtytwo_mvnpuq.html",
+            "Z-6040": "https://res.cloudinary.com/df3vec980/raw/upload/v1759957006/page_four_ckqaw5.html",
+            "A-0103-A": "https://res.cloudinary.com/df3vec980/raw/upload/v1759956999/page_five_zmf2jx.html",
+            "A-0106-A": "https://res.cloudinary.com/df3vec980/raw/upload/v1759957048/page_six_yse0mw.html",
+            "Z-6035": "https://res.cloudinary.com/df3vec980/raw/upload/v1759957039/page_seven_cfblwl.html",
+            "A-0104-A": "https://res.cloudinary.com/df3vec980/raw/upload/v1759956980/page_eight_gk3w5z.html",
+            "M-7228-A": "https://res.cloudinary.com/df3vec980/raw/upload/v1759957023/page_nine_oclzuq.html",
+            "Z-6093": "https://res.cloudinary.com/df3vec980/raw/upload/v1759957066/page_ten_l3j8xf.html",
+            "Z-3510": "https://res.cloudinary.com/df3vec980/raw/upload/v1759956986/page_eleven_a0lthm.html",
+            "Z-5336": "https://res.cloudinary.com/df3vec980/raw/upload/v1759957095/page_twelve_e3iz9k.html",
+            "Z-3906": "https://res.cloudinary.com/df3vec980/raw/upload/v1759957075/page_thirteen_efuw2s.html",
+            "Z-4759": "https://res.cloudinary.com/df3vec980/raw/upload/v1759957014/page_fourteen_uje4v4.html",
+            "Z-4760": "https://res.cloudinary.com/df3vec980/raw/upload/v1759956993/page_fifteen_mylx78.html",
+            "Z-4761": "https://res.cloudinary.com/df3vec980/raw/upload/v1759957057/page_sixteen_oal8b6.html",
+            "Z-6418": "https://res.cloudinary.com/df3vec980/raw/upload/v1763749363/Page_Fifty_vyhqi3.html",
+            "Z-1930": "https://res.cloudinary.com/df3vec980/raw/upload/v1763744547/Page_Fiftyone_nurifc.html",
+            "Z-3354": "https://res.cloudinary.com/df3vec980/raw/upload/v1763744582/Page_Fiftytwo_w2zwfd.html",
+            "Z-2039": "https://res.cloudinary.com/df3vec980/raw/upload/v1763744573/Page_Fiftythree_jdlng1.html",
+            "Z-3546": "https://res.cloudinary.com/df3vec980/raw/upload/v1763744530/Page_Fiftyfour_ys9hee.html",
+            "Z-3571": "https://res.cloudinary.com/df3vec980/raw/upload/v1763744520/Page_Fiftyfive_pgnpkd.html",
+            "Z-3664": "https://res.cloudinary.com/df3vec980/raw/upload/v1763744565/Page_Fiftysix_t9taae.html",
+            "Z-3780": "https://res.cloudinary.com/df3vec980/raw/upload/v1763744556/Page_Fiftyseven_wzt9uj.html",
+            "Z-6151": "https://res.cloudinary.com/df3vec980/raw/upload/v1763744507/Page_Fiftyeight_edvk5l.html",
+            "Z-3781": "https://res.cloudinary.com/df3vec980/raw/upload/v1763744539/Page_Fiftynine_hkw8bd.html",
+            "Z-4373": "https://res.cloudinary.com/df3vec980/raw/upload/v1763751229/Page_sixty_hhgokp.html",
+            "Z-6152": "https://res.cloudinary.com/df3vec980/raw/upload/v1763744591/Page_sixtyone_ogucjp.html"
+        };
+
+        function searchPart() {
+            // 1. Get Input & Clean it (Uppercase, Remove extra spaces)
+            const input = document.getElementById('partInput').value.trim().toUpperCase();
+            
+            // 2. Check Database
+            if(partDatabase[input]) {
+                openProxyLink(partDatabase[input]);
+            } else {
+                alert("Part Number not found. Please check the number or browse our product groups.");
+            }
+        }
+        
+        document.getElementById("partInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                searchPart();
+            }
+        });
+    </script>
+</body>
 </html>
